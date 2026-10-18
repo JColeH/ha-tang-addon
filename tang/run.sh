@@ -24,11 +24,10 @@ for key in "$db"/*.jwk; do
     [ -f "$key" ] || continue
     jose jwk pub -i "$key" -o /dev/null
     chmod 0400 "$key"
-    if [ "$(jose fmt -j "$key" -g alg -u -)" = ES512 ]; then
-        # Public fingerprint only, so authenticated HA logs can verify LAN trust.
-        printf 'Tang signing thumbprint: '
-        jose jwk thp -i "$key"
-    fi
+    # Public fingerprints only; compare the advertised signing key against these.
+    # Do not assume the stored key has an explicit alg property on every jose version.
+    printf 'Tang public key thumbprint: '
+    jose jwk thp -i "$key" -a S256
     count=$((count + 1))
 done
 if [ "$count" -ne 2 ]; then
