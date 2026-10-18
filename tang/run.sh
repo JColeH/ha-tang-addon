@@ -24,6 +24,11 @@ for key in "$db"/*.jwk; do
     [ -f "$key" ] || continue
     jose jwk pub -i "$key" -o /dev/null
     chmod 0400 "$key"
+    if [ "$(jose fmt -j "$key" -g alg -u -)" = ES512 ]; then
+        # Public fingerprint only, so authenticated HA logs can verify LAN trust.
+        printf 'Tang signing thumbprint: '
+        jose jwk thp -i "$key"
+    fi
     count=$((count + 1))
 done
 if [ "$count" -ne 2 ]; then
