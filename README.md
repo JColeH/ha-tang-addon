@@ -4,4 +4,4 @@ Source-only Home Assistant add-on repository. Install only on a trusted home LAN
 
 The `tang` add-on uses Debian's upstream C Tang package and a separate persistent database under `/data/tang`. Keys are generated at first start, never during image build. No keys belong in this repository.
 
-Development status: prepared, shell syntax checked, image not built or runtime-tested yet. Do not use for disk binding until test-string up/down/restart checks pass.
+Initial deployment: image built successfully on aarch64 Home Assistant OS. HTTP advertisement, service stop/start and persistent public-key identity checks passed. Clevis test-string encryption/decryption checks are still pending. Do not use for disk binding until those checks pass.
