@@ -1,0 +1,17 @@
+name: Tang
+version: "0.1.0"
+slug: tang
+description: Home LAN network-bound unlock server
+arch:
+  - aarch64
+  - amd64
+startup: services
+boot: auto
+init: true
+ports:
+  9090/tcp: 9090
+ports_description:
+  9090/tcp: Tang HTTP (trusted home LAN only)
+watchdog: http://[HOST]:[PORT:9090]/adv
+options: {}
+schema: {}
